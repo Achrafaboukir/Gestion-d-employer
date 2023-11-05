@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 // User routes
 $route['user'] = 'user/index';
 $route['user/create'] = 'user/create';
+$route['user/update/(:num)'] = 'user/update/$1';
 $route['user/store'] = 'user/store';
 
 // Employee routes

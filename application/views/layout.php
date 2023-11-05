@@ -181,46 +181,21 @@
                with font-awesome or any other icon font library -->
          
           <li class="nav-item">
-            <a href="<?php echo base_url(); ?>/assets/pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="<?php echo base_url(); ?>/" class="nav-link">
+            <i class="fa fa-users" aria-hidden="true"></i>
               <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
+                Utulisateurs
               </p>
             </a>
           </li>
          
-          
-          <li class="nav-item has-treeview">
-            <a href="<?php echo base_url(); ?>/assets/#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
+          <li class="nav-item">
+            <a href="<?php echo base_url(); ?>employee/index" class="nav-link">
+            <i class="fa fa-briefcase" aria-hidden="true"></i>
               <p>
-                UI Elements
-                <i class="fas fa-angle-left right"></i>
+                Employer
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              
-              <li class="nav-item">
-                <a href="<?php echo base_url(); ?>/assets/pages/UI/modals.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Modals & Alerts</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url(); ?>/assets/pages/UI/navbar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Navbar & Tabs</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url(); ?>/assets/pages/UI/timeline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Timeline</p>
-                </a>
-              </li>
-             
-            </ul>
           </li>
          
         
