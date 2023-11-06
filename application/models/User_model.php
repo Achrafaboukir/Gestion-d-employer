@@ -38,6 +38,16 @@ class User_model extends CI_Model {
             return false; // return false if insert failed
         }
     }
+    public function validate_user($email, $password) {
+        $this->db->where('login', $email);
+        $query = $this->db->get($this->userTable);
+        $user = $query->row_array();
+
+        if ($user && password_verify($password, $user['mot_de_passe'])) {
+            return $user; // Return the user's data if the password is correct
+        }
+        return false; // Return false if authentication fails
+    }
     
 
     // ... other methods ...

@@ -200,6 +200,14 @@ $(document).ready(function(){
                     </div>
                     <div class="col-sm-7">
                         <a href="<?php echo site_url('user/create'); ?>" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New User</span></a>
+                        <input type="text" id="generalSearch" class="searchInput form-control" placeholder="Search by name, lastname, or email" style="width: 200px; margin-left: 10px; float: right; font-size: 12px; height:38px">
+                        <!-- Separate search input for role -->
+                        <select id="roleFilter" class="form-control" style="width: 150px; margin-left: 10px; float: right; font-size: 12px; height:38px">
+    <option value="">Filter by role</option>
+    <option value="admin">Admin</option>
+    <option value="user">User</option>
+</select>
+
                     </div>
                 </div>
             </div>
@@ -257,6 +265,42 @@ $(document).ready(function(){
         var link = $(this).attr('href');
         if(confirm('Are you sure you want to delete this user?')) {
             window.location.href = link;
+        }
+    });
+});
+</script>
+<script>
+$(document).ready(function(){
+    // Function to filter the table according to search input and dropdown selection
+    function filterTable() {
+        var generalSearchValue = $('#generalSearch').val().toLowerCase();
+        var roleFilterValue = $('#roleFilter').val().toLowerCase();
+
+        $('table tbody tr').each(function() {
+            var name = $(this).find('td').eq(1).text().toLowerCase();
+            var lastname = $(this).find('td').eq(2).text().toLowerCase();
+            var email = $(this).find('td').eq(3).text().toLowerCase();
+            var role = $(this).find('td').eq(4).text().toLowerCase().trim();
+
+            $(this).toggle(
+                (name.includes(generalSearchValue) || lastname.includes(generalSearchValue) || email.includes(generalSearchValue)) &&
+                (role === roleFilterValue || roleFilterValue === '')
+            );
+        });
+    }
+
+    // Bind the filter function to the keyup event of the search input
+    $('#generalSearch').on('keyup', filterTable);
+
+    // Bind the filter function to the change event of the dropdown
+    $('#roleFilter').on('change', filterTable);
+
+    // Delete confirmation dialog
+    $('.delete').on('click', function(e) {
+        e.preventDefault();
+        var deleteLink = $(this).attr('href');
+        if (confirm('Are you sure you want to delete this user?')) {
+            window.location.href = deleteLink;
         }
     });
 });

@@ -12,9 +12,20 @@ class User extends CI_Controller {
     }
 
     public function index() {
-        $data['title'] = 'User List';
-        $data['users'] = $this->User_model->get_all_users(); // Make sure the method is get_all_users()
-        $data['content'] = 'user/index';
+        // Check if the user is logged in
+        if (!$this->session->userdata('logged_in')) {
+            // If not, redirect to the login page
+            redirect('auth/login');
+        }
+        
+        // Get the user's name from session data to display in the view
+        $data['username'] = $this->session->userdata('email'); // Assuming 'email' is the username
+    
+        // Prepare data to pass to the view
+        $data['title'] = 'Dashboard'; // Customize the title for each controller
+        $data['content'] = 'dashboard/index'; // Customize the content path for each controller
+    
+        // Load the views
         $this->load->view('layout', $data);
     }
 

@@ -63,3 +63,7 @@ $route['user/store'] = 'user/store';
 $route['employee'] = 'employee/index';
 $route['employee/create'] = 'employee/create';
 $route['employee/store'] = 'employee/store';
+
+// Authentication routes
+$route['login'] = 'auth/login'; // Maps to the login method in the Auth controller
+$route['logout'] = 'auth/logout'; // Maps to the logout method in the Auth controller

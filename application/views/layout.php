@@ -190,7 +190,7 @@
           </li>
          
           <li class="nav-item">
-            <a href="<?php echo base_url(); ?>employee/index" class="nav-link">
+            <a href="<?php echo site_url('employee'); ?>" class="nav-link">
             <i class="fa fa-briefcase" aria-hidden="true"></i>
               <p>
                 Employer
