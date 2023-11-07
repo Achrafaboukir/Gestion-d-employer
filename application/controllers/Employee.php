@@ -16,6 +16,8 @@ class Employee extends CI_Controller {
         $data['employees'] = $this->Employee_model->get_all_employees();
         $data['posts'] = $this->Post_model->get_all_posts(); // Retrieve all posts
         $data['content'] = 'employee/index';
+        $data['title'] = 'List Employe';
+
         $this->load->view('layout', $data); // Pass posts data to the view
     }
 
@@ -24,6 +26,8 @@ class Employee extends CI_Controller {
         access_only_for_admins();
 
         $data['posts'] = $this->Post_model->get_all_posts(); // Retrieve all posts
+        $data['title'] = 'Create Employe';
+
         $data['content'] = 'employee/create';
         $this->load->view('layout', $data); // Pass posts data to the create view
     }
@@ -82,6 +86,8 @@ class Employee extends CI_Controller {
             'employee' => $employee,
             'posts' => $posts
         ];
+        $data['title'] = 'Edit Employe';
+
     
         // Load the view with the data
         $this->load->view('layout', $data);

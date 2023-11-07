@@ -9,9 +9,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <style>
-        body {
-            padding-top: 5rem;
-        }
+        
         .container {
             max-width: 600px;
         }
@@ -23,9 +21,7 @@
                 <?php echo validation_errors(); ?>
             </div>
         <?php endif; ?>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">User Management</a>
-    </nav>
+    
 
     <main role="main" class="container">
         <h1 class="mt-5">Edit User</h1>

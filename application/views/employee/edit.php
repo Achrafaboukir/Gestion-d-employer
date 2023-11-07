@@ -50,7 +50,7 @@
 
             <div class="form-group">
     <label for="telephone">Phone</label>
-    <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Enter telephone" pattern="[0-9]{10}" required title="Phone number must be in the format: 123-456-7890" value="<?php echo $employee['telephone']; ?>">
+    <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Enter telephone" pattern="\+?[0-9\s-]{6,20}" title="Phone number must be between 6 to 20 digits." required  value="<?php echo $employee['telephone']; ?>">
     <small>Format: 123-456-7890</small>
 </div>
             <div class="form-group">

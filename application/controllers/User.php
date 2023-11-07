@@ -34,7 +34,10 @@ class User extends CI_Controller {
 
     public function create() {
         access_only_for_admins();
+       
+
         $data['roles'] = $this->Role_model->get_all_roles(); // Fetch all roles
+         $data['title'] = 'Create User'; // Set the title for the create user page
         $data['content'] = 'user/create';
         $this->load->view('layout', $data); // Pass the roles to the view
     }
@@ -158,7 +161,7 @@ public function edit($id) {
 
     // Load additional data needed for the edit form
     $data['roles'] = $this->Role_model->get_all_roles();
-
+    
     $data['title'] = 'Edit User';
     $data['content'] = 'user/edit'; // The view file for the edit form
     $this->load->view('layout', $data);

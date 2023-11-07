@@ -254,16 +254,10 @@ $(document).ready(function(){
                 </tbody>
             </table>
             <div class="clearfix">
-                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                <ul class="pagination">
-                    <li class="page-item disabled"><a href="#">Previous</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                </ul>
+            <div class="hint-text">Showing <b id="showing-entries">5</b> out of <b id="total-entries">25</b> entries</div>
+            <ul class="pagination" id="pagination-container"></ul>
+
+
             </div>
         </div>
     </div>
@@ -314,4 +308,46 @@ $(document).ready(function(){
         }
     });
 });
+$(document).ready(function(){
+    var numItems = $('table tbody tr').length;
+    var perPage = 5;
+
+    // Calculate the total number of pages
+    var totalPages = Math.ceil(numItems / perPage);
+
+    // Update showing entries and total entries
+    $('#showing-entries').text(perPage);
+    $('#total-entries').text(numItems);
+
+    // Generate pagination buttons
+    for(var i = 1; i <= totalPages; i++) {
+        $('#pagination-container').append('<li class="page-item"><a href="#" class="page-link">' + i + '</a></li>');
+    }
+
+    // Function to show the rows for a specific page
+    function showPage(pageNum) {
+        var start = (pageNum - 1) * perPage;
+        var end = start + perPage;
+        $('table tbody tr').hide().slice(start, end).show();
+    }
+
+    // Initially show the first page
+    showPage(1);
+
+    // Add click event to pagination buttons
+    $('#pagination-container').on('click', '.page-link', function(e){
+        e.preventDefault();
+        var pageNum = parseInt($(this).text());
+        showPage(pageNum);
+
+        // Update active state of the pagination links
+        $('#pagination-container .page-item').removeClass('active');
+        $(this).parent().addClass('active');
+    });
+
+    // Activate the first pagination link
+    $('#pagination-container .page-item:first-child').addClass('active');
+});
+
+
 </script>
