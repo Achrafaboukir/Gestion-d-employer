@@ -170,7 +170,9 @@
           <img src="<?php echo base_url(); ?>/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="<?php echo base_url(); ?>/assets/#" class="d-block">Alexander Pierce</a>
+        <?php if ($this->session->userdata('logged_in')): ?>
+          <a href="<?php echo base_url(); ?>/assets/#" class="d-block"><?php echo $this->session->userdata('nom'); ?> <?php echo $this->session->userdata('prenom'); ?></a>
+          <?php endif ?>
         </div>
       </div>
 
@@ -179,16 +181,18 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-         
+               <?php if ($this->session->userdata('role') === 'admin'): ?>
+    <!-- Display admin links -->
+
           <li class="nav-item">
-            <a href="<?php echo base_url(); ?>/" class="nav-link">
+            <a href="<?php echo base_url(); ?>user" class="nav-link">
             <i class="fa fa-users" aria-hidden="true"></i>
               <p>
                 Utulisateurs
               </p>
             </a>
           </li>
-         
+         <?php endif ?>
           <li class="nav-item">
             <a href="<?php echo site_url('employee'); ?>" class="nav-link">
             <i class="fa fa-briefcase" aria-hidden="true"></i>
@@ -197,6 +201,19 @@
               </p>
             </a>
           </li>
+       
+
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              </div>
+        <div class="info">
+        <?php if ($this->session->userdata('logged_in')): ?>
+          <a href="<?php echo site_url('auth/logout'); ?>">Logout</a>
+                    <?php endif ?>
+        </div>
+      </div>
+          
          
         
         </ul>

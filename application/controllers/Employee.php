@@ -21,12 +21,16 @@ class Employee extends CI_Controller {
 
 
     public function create() {
+        access_only_for_admins();
+
         $data['posts'] = $this->Post_model->get_all_posts(); // Retrieve all posts
         $data['content'] = 'employee/create';
         $this->load->view('layout', $data); // Pass posts data to the create view
     }
 
     public function store() {
+        access_only_for_admins();
+
         $this->form_validation->set_rules('nom', 'Name', 'required');
         $this->form_validation->set_rules('prenom', 'Surname', 'required');
         $this->form_validation->set_rules('mail', 'Email', 'required|valid_email|is_unique[employe.mail]');
@@ -60,6 +64,8 @@ class Employee extends CI_Controller {
     }
 
     public function edit($id) {
+        access_only_for_admins();
+
         // Fetch the employee data for editing
         $employee = $this->Employee_model->get_employee_by_id($id);
         if (!$employee) {
@@ -83,6 +89,8 @@ class Employee extends CI_Controller {
     
 
     public function update($id) {
+        access_only_for_admins();
+
         // Set form validation rules for fields other than password
         $this->form_validation->set_rules('nom', 'Name', 'required');
         $this->form_validation->set_rules('prenom', 'Surname', 'required');
@@ -118,6 +126,8 @@ class Employee extends CI_Controller {
     }
     
     public function delete($id) {
+        access_only_for_admins();
+
         if ($this->Employee_model->delete_employee($id)) {
             $this->session->set_flashdata('success', 'Employee deleted successfully.');
         } else {

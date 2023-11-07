@@ -199,9 +199,11 @@ $(document).ready(function(){
                 <h2>Manage <b>Employees</b></h2>
             </div>
             <div class="col-sm-7">
+            <?php if ($this->session->userdata('role') === 'admin'): ?>
                 <a href="<?php echo site_url('employee/create'); ?>" class="btn btn-secondary" style="height:38px;">
                     <i class="material-icons">&#xE147;</i> <span>Add New Employee</span>
                 </a>
+                <?php endif;?>
                 <!-- Single search input for name, surname, and email -->
                 <input type="text" id="generalSearch" class="searchInput form-control" placeholder="Search by name, surname, or email..." style="width: 200px; margin-left: 10px; float: right; font-size: 12px; height:38px">
                         <!-- Separate search input for position -->
@@ -225,7 +227,9 @@ $(document).ready(function(){
                         <th>Phone</th>
                         <th>adresse</th>
                         <th>Position</th>
+                        <?php if ($this->session->userdata('role') === 'admin'): ?>
                         <th>Action</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -238,10 +242,12 @@ $(document).ready(function(){
                         <td><?php echo $employee['telephone']; ?></td>
                         <td><?php echo $employee['adresse']; ?></td>
                         <td><?php echo htmlspecialchars($employee['post_name']); ?></td>
+                        <?php if ($this->session->userdata('role') === 'admin'): ?>
                         <td>
                             <a href="<?php echo site_url('employee/edit/'.$employee['id']); ?>" class="modify" title="Modify" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                             <a href="<?php echo site_url('employee/delete/'.$employee['id']); ?>" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
+                        <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
                     

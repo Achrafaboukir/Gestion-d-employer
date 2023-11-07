@@ -9,27 +9,31 @@ class User extends CI_Controller {
         $this->load->helper('form');
         $this->load->helper('url');
         $this->load->library('form_validation');
+        $this->load->library('session');
+      
+        if (!is_logged_in()) {
+            redirect('auth/login');
+        }
     }
 
     public function index() {
-        // Check if the user is logged in
-        if (!$this->session->userdata('logged_in')) {
-            // If not, redirect to the login page
-            redirect('auth/login');
+        // Check if the user is logged in and has the 'admin' role
+        if ($this->session->userdata('logged_in') && $this->session->userdata('role') === 'admin') {
+            $data['title'] = 'User List';
+            $data['users'] = $this->User_model->get_all_users();
+            $data['content'] = 'user/index';
+            $this->load->view('layout', $data);
+        } else {
+            // If not admin, show error message and redirect
+            $this->session->set_flashdata('error', 'You do not have permission to view this page.');
+            redirect('employee/index'); // Or redirect to some other page
         }
-        
-        // Get the user's name from session data to display in the view
-        $data['username'] = $this->session->userdata('email'); // Assuming 'email' is the username
-    
-        // Prepare data to pass to the view
-        $data['title'] = 'Dashboard'; // Customize the title for each controller
-        $data['content'] = 'dashboard/index'; // Customize the content path for each controller
-    
-        // Load the views
-        $this->load->view('layout', $data);
     }
+    
+    
 
     public function create() {
+        access_only_for_admins();
         $data['roles'] = $this->Role_model->get_all_roles(); // Fetch all roles
         $data['content'] = 'user/create';
         $this->load->view('layout', $data); // Pass the roles to the view
@@ -38,6 +42,7 @@ class User extends CI_Controller {
     
 
     public function store() {
+        access_only_for_admins();
         // Set form validation rules
         $this->form_validation->set_rules('nom', 'Name', 'required');
         $this->form_validation->set_rules('prenom', 'Surname', 'required');
@@ -80,6 +85,7 @@ class User extends CI_Controller {
     // Add these methods to your User controller
 
 public function delete($id) {
+    access_only_for_admins();
     if ($this->User_model->delete_user($id)) {
         $this->session->set_flashdata('success', 'User deleted successfully.');
     } else {
@@ -89,6 +95,7 @@ public function delete($id) {
 }
 
 public function update($id) {
+    access_only_for_admins();
     if (!$id) {
         show_404();
     }
@@ -138,6 +145,7 @@ public function update($id) {
 
 // You need to create an edit method to load the edit form
 public function edit($id) {
+    access_only_for_admins();
     if (!$id) {
         show_404();
     }

@@ -20,7 +20,7 @@ public function login() {
         $this->load->view('auth/login');
     } else {
         $email = $this->input->post('login');
-        $password = $this->input->post('password'); // This would be the field name for the password input in your form
+        $password = $this->input->post('password');
 
         // Check credentials in User_model
         $user = $this->User_model->validate_user($email, $password);
@@ -29,13 +29,19 @@ public function login() {
             // Set session data
             $sessionData = [
                 'user_id' => $user['id'],
-                'email' => $user['login'],
-                'role' => $user['role_name'],
+                'nom' => $user['nom'],
+                'prenom' => $user['prenom'],
+                'role' => $user['role_name'], // Store the role name in the session
                 'logged_in' => TRUE
             ];
             $this->session->set_userdata($sessionData);
-            // Redirect to the 'dashboard' controller's index method
-            redirect('user/index');
+
+            // Redirect based on role
+            if ($sessionData['role'] == 'Admin') {
+                redirect('layout'); // Assuming you have a dashboard controller for admins
+            } else {
+                redirect('employee/index'); // Non-admins get redirected to employee index
+            }
         } else {
             // Set an error message
             $this->session->set_flashdata('login_error', 'Invalid email or password.');

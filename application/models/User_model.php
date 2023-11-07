@@ -39,15 +39,20 @@ class User_model extends CI_Model {
         }
     }
     public function validate_user($email, $password) {
-        $this->db->where('login', $email);
-        $query = $this->db->get($this->userTable);
+        $this->db->select('u.id, u.nom, u.prenom, u.login, u.mot_de_passe, r.role_name');
+        $this->db->from('utilisateur u');
+        $this->db->join('roles r', 'u.role_id = r.role_id', 'left');
+        $this->db->where('u.login', $email);
+        $query = $this->db->get();
+        
         $user = $query->row_array();
-
+    
         if ($user && password_verify($password, $user['mot_de_passe'])) {
             return $user; // Return the user's data if the password is correct
         }
         return false; // Return false if authentication fails
     }
+    
     
 
     // ... other methods ...
